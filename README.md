@@ -1,6 +1,6 @@
 # Matcha
 
-Ce projet contient une application web avec un frontend React, un backend utilisant le framework Nitro basé sur Node.js, une base de données PostgreSQL et pgAdmin pour la gestion de la base de données.
+This project contains a web application with a React frontend, a Node.js backend using the Nitro framework, a PostgreSQL database, and pgAdmin for database management.
 
 ## Prérequis
 
@@ -9,44 +9,60 @@ Ce projet contient une application web avec un frontend React, un backend utilis
 
 ## Configuration
 
-1. Créez un fichier `.env` à la racine du projet basé sur le modèle `.env.example`.
-2. Remplissez le fichier `.env` avec vos propres valeurs pour les variables d'environnement.
+1. Create a `.env` file at the root of the project based on the `.env.example` template.
+2. Fill in the `.env` file with your own values for the environment variables.
 
-## Démarrage des services
+## Starting Services
 
-Pour lancer tous les services, exécutez la commande suivante à la racine du projet :
-
+To start all services using Docker Compose, run:
 ```bash
-docker-compose up -d
+make
+```
+OR
+```
+make start-docker
+```
+To run the backend and frontend locally (without Docker), run:
+```bash
+make start-local
 ```
 
-## Accès aux services
+## Accessing Services
 
 - Frontend : http://localhost:5173
 - Backend : http://localhost:3000
 - pgAdmin : http://localhost:5050
-  - Utilisez l'email et le mot de passe définis dans le fichier `.env`
+  - Use the email and password set in the `.env` file.
 
-## Connexion à la base de données via pgAdmin
+## Connecting to the Database via pgAdmin
 
-1. Accédez à pgAdmin via http://localhost:5050
-2. Connectez-vous avec les identifiants définis dans le fichier `.env`
-3. Ajoutez un nouveau serveur avec les paramètres suivants :
-   - Nom : Au choix
-   - Hôte : database
-   - Port : 5432
-   - Base de données, utilisateur et mot de passe : comme définis dans le fichier `.env`
+1. Access pgAdmin at http://localhost:5050.
+2. Log in with the credentials set in the `.env` file.
+3. Add a new server with the following settings:
+- Name: Choose any name
+- Host: database
+- Port: 5432
+- Database, username, and password: As defined in the `.env` file.
 
-## Arrêt des services
-
-Pour arrêter tous les services, exécutez :
-
+## Stop or Cleaning Up Services
+- To stop Docker containers, run:
 ```bash
-docker-compose down
+make stop-docker
 ```
-
-Pour arrêter les services et supprimer les volumes (cela effacera les données de la base de données), utilisez :
+- To clean up node modules and Docker containers, run:
+```bash
+make clean
+```
+- To only clean the backend or frontend dependencies, you can run:
 
 ```bash
-docker-compose down -v
+make clean-backend
+```
+OR
+```bash
+make clean-frontend
+```
+- To remove Docker containers and volumes only, use:
+```bash
+make docker-clean
 ```

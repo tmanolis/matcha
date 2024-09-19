@@ -1,31 +1,56 @@
 services:
+  # -------------------------------------------------------------------------------- #
+  # backend service with nitro.unjs                                                      #
+  # -------------------------------------------------------------------------------- #
   backend:
     container_name: backend
     build: backend
     ports:
       - 3000:3000
+    networks:
+      - matcha_network
     volumes:
       - ./backend:/usr/src/app
 
+  # -------------------------------------------------------------------------------- #
+  # frontend service with Vite-React                                                 #
+  # -------------------------------------------------------------------------------- #
   frontend:
     container_name: frontend
     build: frontend
     ports:
       - 5173:5173
+    networks:
+      - matcha_network
     volumes:
       - ./frontend:/usr/src/app
-  
+
+  # -------------------------------------------------------------------------------- #
+  # postgresql database                                                              #
+  # -------------------------------------------------------------------------------- # 
   database:
     image: postgres:16.4
     container_name: postgres
     ports:
       - 5432:5432
-    volume:
+    networks:
+      - matcha_network
+    volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
 
+# -------------------------------------------------------------------------------- #
+# networks                                                                         #
+# -------------------------------------------------------------------------------- #
+networks:
+  matcha_network:
+
+# -------------------------------------------------------------------------------- #
+# volumes                                                                          #
+# -------------------------------------------------------------------------------- #
 volumes:
   postgres-data:
+

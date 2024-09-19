@@ -21,6 +21,11 @@ start-docker: backend frontend
 	@echo "\033[32mStarting Docker Compose...\033[0m"
 	$(DOCKER_COMPOSE) up --build
 
+# Rules to stop docker services
+stop-docker:
+	@echo "\033[32mStopping Docker Compose...\033[0m"
+	$(DOCKER_COMPOSE) down
+
 # Rules to clean
 clean: clean-backend clean-frontend docker-clean
 
