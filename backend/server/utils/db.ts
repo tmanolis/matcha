@@ -35,3 +35,20 @@ export const initDb = async () => {
     client.release();
   }
 };
+
+export const addUser = async (username: string, email: string) => {
+  const client = await getClient();
+  try {
+    const result = await client.query(
+      'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
+      [username, email]
+    );
+    console.log('User added successfully');
+    return result.rows[0];
+  } catch (err) {
+    console.error('Error adding user:', err);
+    throw err;
+  } finally {
+    client.release();
+  }
+};
