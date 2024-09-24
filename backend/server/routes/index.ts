@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
   await initDb();
 
   // Add a new user
-  const newUser = await addUser('testuser', 'testuser@example.com');
+  const newUser = await addUser('testuser123', 'testuser123@example.com');
 
   // Get all users
   const result = await query('SELECT * FROM users');
