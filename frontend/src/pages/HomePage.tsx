@@ -3,7 +3,7 @@ import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import './Root.css'
 
-function Root() {
+function Home() {
   const [count, setCount] = useState(0)
 
   return (
@@ -22,7 +22,7 @@ function Root() {
           count is {count}
         </button>
         <p>
-          Edit <code>src/Root.tsx</code> and save to test HMR
+          Edit <code>src/Home.tsx</code> and save to test HMR
         </p>
       </div>
       <p className="read-the-docs">
@@ -32,4 +32,4 @@ function Root() {
   )
 }
 
-export default Root
+export default Home

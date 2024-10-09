@@ -1,35 +1,47 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import './index.css'
+import "./index.css";
 
-import Root from './routes/Root.tsx'
-import Profile from './routes/profilePage.tsx'
-import NotFound from './routes/notFound.tsx'
-import Profiles from './routes/profiles.tsx'
-
+import Profile from "./pages/ProfilePage.tsx";
+import NotFound from "./pages/NotFoundPage.tsx";
+import Profiles from "./pages/profilesPage.tsx";
+import Home from "./pages/HomePage.tsx";
+import SignIn from "./pages/SignInPage.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import AuthProvider from "./components/AuthProvider.tsx";
 
 const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <Root/>,
-		errorElement: <NotFound/>
-	},
-	{
-		path: '/profiles',
-		element: <Profiles/>,
-		children: [
-			{
-				path: '/profiles/:profileId',
-				element: <Profile/>
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/signin",
+    element: <SignIn />,
+  },
+  {
+    path: "/profiles",
+    element: (
+      <ProtectedRoute>
+        <Profiles />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "/profiles/:profileId",
+        element: <Profile />,
+      },
+    ],
+  },
 ]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router ={router}/>
-  </StrictMode>,
-)
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </StrictMode>
+);
