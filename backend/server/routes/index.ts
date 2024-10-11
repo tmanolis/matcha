@@ -1,15 +1,17 @@
 import { eventHandler } from 'h3';
-import { initDb, query, addUser } from '../utils/db';
+import { db } from '../utils/db';
 
 export default eventHandler(async (event) => {
-  // Initialize the database
-  await initDb();
+  const database = new db();
+
+  // Initialiser la base de données
+  await database.initDb();
 
   // Add a new user
-  const newUser = await addUser('testuser123', 'testuser123@example.com');
+  const newUser = await database.addUser('testuser123', 'testuser123@example.com');
 
   // Get all users
-  const result = await query('SELECT * FROM users');
+  const result = await database.query('SELECT * FROM users');
   const users = result.rows;
 
   // Format the response
