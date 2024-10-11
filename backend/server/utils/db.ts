@@ -1,10 +1,12 @@
-import { Pool, QueryResult } from 'pg';
+import pg, { QueryResult } from 'pg';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+const { Pool } = pg;
+
 export class db {
-  private pool: Pool;
+  private pool: pg.Pool;
 
   constructor() {
     this.pool = new Pool({
